@@ -1,17 +1,18 @@
 local basis = require("basis")
 local ffi = require("ffi")
 
-local A = basis.create_basis(8)
+local blocksize = 16
+local A = basis.create_basis(blocksize)
 
 -- Canvas list to display
 local list = {}
 -- Display options
 local offsetX = 1
 local offsetY = 1
-local scale   = 5
-local size    = 8
-local spacing = scale * size + 6
-local items_per_row = 8
+local scale   = 2
+local size    = blocksize
+local spacing = scale * (size + 2)
+local items_per_row = blocksize
 
 -- Debug display
 local debugX = spacing*items_per_row
@@ -41,7 +42,7 @@ function love.load()
   for i,v in ipairs(A) do
     local b1 = {}
     for _,w in ipairs(v) do table.insert(b1,w+128) end
-    local c1 = readimage(b1,8,8)
+    local c1 = readimage(b1,blocksize,blocksize)
     table.insert(list, {["canvas"]=c1, ["data"]=A[i], ["num"]=i})
   end
 
@@ -74,8 +75,8 @@ function love.draw()
       local data = v.data
       for j,value in ipairs(data) do
         local grid = 35
-        local x = debugX+50+((j-1)%8) * grid
-        local y = math.floor((j-1)/8) * grid
+        local x = debugX+50+((j-1)%blocksize) * grid
+        local y = math.floor((j-1)/blocksize) * grid
         love.graphics.printf(math.floor(value), x, y, grid,"right")
       end
     end

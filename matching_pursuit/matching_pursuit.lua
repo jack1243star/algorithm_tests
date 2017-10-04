@@ -47,6 +47,7 @@ local function bpb(bb, mask, ep, iterations)
 --  and tries < iterations
   do
     tries = tries + 1
+    print("  tries = "..tries)
 
     -- tmp=dct(dct(xt)')';
     DCT(xt_c, tmp_c, tbs, tbs)

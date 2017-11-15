@@ -70,7 +70,7 @@ function love.load()
   item(list,b2,8,8,"rec1")
   item(list,b5,8,8,"coeff2")
   item(list,b6,8,8,"rec2")
-  item(list,b3,8,8,"combined")
+  item(list,b7,8,8,"combined")
 end
 
 function love.draw()

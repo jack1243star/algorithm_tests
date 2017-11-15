@@ -29,6 +29,7 @@ int main()
     int rec[64];
     int coeff2[64];
     int rec2[64];
+    int ep = 50;
     char filename[] = "love2d-visualize/output.lua";
     FILE *f;
 
@@ -36,10 +37,10 @@ int main()
         image[i] -= 128;
 
     chymp_init();
-    chymp_matching_pursuit(8, image, mask, 1000, coeff, rec);
+    chymp_matching_pursuit(8, image, mask, ep, coeff, rec);
     for (i = 0; i < 64; i++)
         mask[i] = -mask[i]+1;
-    chymp_matching_pursuit(8, image, mask, 1000, coeff2, rec2);
+    chymp_matching_pursuit(8, image, mask, ep, coeff2, rec2);
     chymp_free();
 
     f = fopen(filename, "w");

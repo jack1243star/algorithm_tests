@@ -99,6 +99,37 @@ CHYMP_DEF void chymp_free(void)
     free(basis32);
 }
 
+CHYMP_DEF void chymp_mask(int *pixels, UInt stride, int *mask)
+{
+    const UInt length = stride * stride;
+    Double sum = 0.0;
+    Double avg = 0.0;
+
+    // calculate the average value for the block
+    for (UInt i = 0; i < length; i++)
+    {
+        sum += *(pixels + i);
+    }
+    avg = sum / length;
+
+    // classify the pixels as dark or light
+    for (UInt i = 0; i < length; i++)
+    {
+        const UInt offsetX = i % stride;
+        const UInt offsetY = i / stride;
+        // calculate address of mask bit
+        int *maskbit = mask + offsetX + offsetY * stride;
+        if (*(pixels + i) > avg)
+        {
+            *maskbit = 1;
+        }
+        else
+        {
+            *maskbit = 0;
+        }
+    }
+}
+
 CHYMP_DEF void chymp_matching_pursuit(int size,
                                       TCoeff *bb,
                                       int *mask,

@@ -13,18 +13,10 @@ int image[] = {219, 219, 219, 219, 219, 219, 219, 219,
                176, 31, 182, 197, 54, 129, 199, 154,
                21, 157, 199, 201, 154, 17, 17, 51};
 
-int mask[] = {0, 0, 0, 0, 0, 0, 0, 0,
-              0, 0, 0, 0, 0, 0, 0, 0,
-              1, 0, 0, 0, 1, 0, 0, 0,
-              0, 1, 0, 0, 1, 0, 0, 0,
-              0, 1, 0, 0, 1, 0, 0, 0,
-              0, 1, 0, 0, 1, 0, 0, 0,
-              0, 1, 0, 0, 1, 0, 0, 0,
-              1, 0, 0, 0, 0, 1, 1, 1};
-
 int main()
 {
     unsigned int i;
+    int mask[64];
     int coeff[64];
     int rec[64];
     int coeff2[64];
@@ -36,6 +28,7 @@ int main()
     for (i = 0; i < 64; i++)
         image[i] -= 128;
 
+    chymp_mask(image, 8, mask);
     chymp_init();
     chymp_matching_pursuit(8, image, mask, ep, coeff, rec);
     for (i = 0; i < 64; i++)

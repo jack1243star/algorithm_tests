@@ -12,7 +12,10 @@
 #define CHYMP_DEF extern
 #endif
 
-#include <stdio.h>  // printf
+#ifdef CHYMP_DEBUG
+#include <stdio.h> // printf
+#endif
+
 #include <stdlib.h> // abs
 #include <string.h> // memset
 #include <math.h>   // pow
@@ -167,14 +170,18 @@ CHYMP_DEF void chymp_matching_pursuit(int size,
         err = err + (bb[i] * mask[i]) * (bb[i] * mask[i]);
     }
     err = err / ml;
+#ifdef CHYMP_DEBUG
     printf("    err = %f\n", err);
     printf("- - - - - - - -\n");
+#endif
 
     int tries = 0;
     while (err > ep && tries < 100)
     {
         tries++;
+#ifdef CHYMP_DEBUG
         printf("  tries = %u\n", tries);
+#endif
 
         // Find the most significant coefficient
         chymp__dct(xt, tmp, size, size);
@@ -188,8 +195,10 @@ CHYMP_DEF void chymp_matching_pursuit(int size,
             }
         }
         sigcoeff = tmp[index];
+#ifdef CHYMP_DEBUG
         printf("     ix = %u\n", index);
         printf("maximum = %d\n", sigcoeff);
+#endif
 
         // Subtract scaled basis from masked block
         basis = basis_set + index * size * size;
@@ -210,25 +219,11 @@ CHYMP_DEF void chymp_matching_pursuit(int size,
             err += diff * diff;
         }
         err /= ml;
+#ifdef CHYMP_DEBUG
         printf("    err = %f\n", err);
         printf("- - - - - - - -\n");
+#endif
     }
-
-    // switch (size)
-    // {
-    //     case 4:
-    //         memcpy(output, basis4, size*size*size*size*sizeof(basis4));
-    //         break;
-    //     case 8:
-    //         memcpy(output, basis8, size*size*size*size*sizeof(basis4));
-    //         break;
-    //     case 16:
-    //         memcpy(output, basis16, size*size*size*size*sizeof(basis4));
-    //         break;
-    //     case 32:
-    //         memcpy(output, basis32, size*size*size*size*sizeof(basis4));
-    //         break;
-    // }
 }
 
 #endif

@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #define CHY_MATCHING_PURSUIT_IMPLEMENTATION
+// #define CHYMP_DEBUG
 #include "matching_pursuit.h"
 
 int image[] = {219, 219, 219, 219, 219, 219, 219, 219,
@@ -30,8 +31,6 @@ int main()
     int rec2[64];
     char filename[] = "love2d-visualize/output.lua";
     FILE *f;
-
-    printf("Starting...\n");
 
     for (i = 0; i < 64; i++)
         image[i] -= 128;

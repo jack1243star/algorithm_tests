@@ -15,71 +15,71 @@ int image[] = {219, 219, 219, 219, 219, 219, 219, 219,
 
 int main()
 {
-    unsigned int i;
-    int mask[64];
-    int coeff[64];
-    int rec[64];
-    int coeff2[64];
-    int rec2[64];
-    int ep = 50;
-    char filename[] = "love2d-visualize/output.lua";
-    FILE *f;
+  unsigned int i;
+  int mask[64];
+  int coeff[64];
+  int rec[64];
+  int coeff2[64];
+  int rec2[64];
+  int ep = 50;
+  char filename[] = "love2d-visualize/output.lua";
+  FILE *f;
 
-    for (i = 0; i < 64; i++)
-        image[i] -= 128;
+  for (i = 0; i < 64; i++)
+    image[i] -= 128;
 
-    chymp_mask(image, 8, mask);
-    chymp_init();
-    chymp_matching_pursuit(8, image, mask, ep, coeff, rec);
-    for (i = 0; i < 64; i++)
-        mask[i] = -mask[i]+1;
-    chymp_matching_pursuit(8, image, mask, ep, coeff2, rec2);
-    chymp_free();
+  chymp_mask(image, 8, mask);
+  chymp_init();
+  chymp_matching_pursuit(8, image, mask, ep, coeff, rec);
+  for (i = 0; i < 64; i++)
+    mask[i] = -mask[i] + 1;
+  chymp_matching_pursuit(8, image, mask, ep, coeff2, rec2);
+  chymp_free();
 
-    f = fopen(filename, "w");
+  f = fopen(filename, "w");
 
-    fprintf(f, "image = {");
-    for (i = 0; i < 64; i++)
-    {
-        fprintf(f, "%d,", image[i]);
-    }
-    fprintf(f, "}\n");
+  fprintf(f, "image = {");
+  for (i = 0; i < 64; i++)
+  {
+    fprintf(f, "%d,", image[i]);
+  }
+  fprintf(f, "}\n");
 
-    fprintf(f, "mask = {");
-    for (i = 0; i < 64; i++)
-    {
-        fprintf(f, "%d,", mask[i]);
-    }
-    fprintf(f, "}\n");
+  fprintf(f, "mask = {");
+  for (i = 0; i < 64; i++)
+  {
+    fprintf(f, "%d,", mask[i]);
+  }
+  fprintf(f, "}\n");
 
-    fprintf(f, "coeff = {");
-    for (i = 0; i < 64; i++)
-    {
-        fprintf(f, "%d,", coeff[i]);
-    }
-    fprintf(f, "}\n");
+  fprintf(f, "coeff = {");
+  for (i = 0; i < 64; i++)
+  {
+    fprintf(f, "%d,", coeff[i]);
+  }
+  fprintf(f, "}\n");
 
-    fprintf(f, "rec = {");
-    for (i = 0; i < 64; i++)
-    {
-        fprintf(f, "%d,", rec[i]);
-    }
-    fprintf(f, "}\n");
+  fprintf(f, "rec = {");
+  for (i = 0; i < 64; i++)
+  {
+    fprintf(f, "%d,", rec[i]);
+  }
+  fprintf(f, "}\n");
 
-    fprintf(f, "coeff2 = {");
-    for (i = 0; i < 64; i++)
-    {
-        fprintf(f, "%d,", coeff2[i]);
-    }
-    fprintf(f, "}\n");
+  fprintf(f, "coeff2 = {");
+  for (i = 0; i < 64; i++)
+  {
+    fprintf(f, "%d,", coeff2[i]);
+  }
+  fprintf(f, "}\n");
 
-    fprintf(f, "rec2 = {");
-    for (i = 0; i < 64; i++)
-    {
-        fprintf(f, "%d,", rec2[i]);
-    }
-    fprintf(f, "}\n");
-    fclose(f);
+  fprintf(f, "rec2 = {");
+  for (i = 0; i < 64; i++)
+  {
+    fprintf(f, "%d,", rec2[i]);
+  }
+  fprintf(f, "}\n");
+  fclose(f);
 
-    return 0;
+  return 0;
 }
